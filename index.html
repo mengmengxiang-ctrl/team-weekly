@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="zh"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelancer Reassessment · Apr 20 – Apr 26, 2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0B1120;
+  color: #E2E8F0;
+  line-height: 1.55;
+  font-size: 14px;
+}
+.container { max-width: 1480px; margin: 0 auto; padding: 32px 36px 80px; }
+
+/* Header */
+.hdr { margin-bottom: 24px; }
+.hdr h1 { font-size: 26px; font-weight: 700; color: #F1F5F9; letter-spacing: -0.01em; }
+.hdr .meta { font-size: 12.5px; color: #64748B; margin-top: 6px; }
+
+/* Section headers - bright blue */
+h2.sect {
+  font-size: 18px; font-weight: 700; color: #60A5FA;
+  margin: 28px 0 14px; letter-spacing: -0.005em;
+}
+
+/* Panel / card */
+.panel {
+  background: #121B2E;
+  border: 1px solid #1E293B;
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 14px;
+}
+.panel h3 { font-size: 16px; font-weight: 600; color: #60A5FA; margin-bottom: 18px; }
+
+/* Top KPI row - 3 panels side by side */
+.kpi-row { display: grid; grid-template-columns: 1.3fr 1.5fr 1fr; gap: 14px; margin-bottom: 18px; }
+@media (max-width: 1100px) { .kpi-row { grid-template-columns: 1fr; } }
+
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; }
+.kpi-grid.four { grid-template-columns: 1fr 1fr; }
+.kpi-cell .num {
+  font-size: 42px; font-weight: 700; line-height: 1;
+  letter-spacing: -0.02em;
+}
+.kpi-cell .num.blue { color: #60A5FA; }
+.kpi-cell .num.purple { color: #A78BFA; }
+.kpi-cell .num.green { color: #34D399; }
+.kpi-cell .num.orange { color: #FBBF24; }
+.kpi-cell .num.red { color: #F87171; }
+.kpi-cell .num.amber { color: #F59E0B; }
+.kpi-cell .sub {
+  font-size: 12px; color: #64748B; margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  color: #60A5FA; font-weight: 600; font-size: 11.5px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 12px 14px; text-align: left;
+  border-bottom: 1px solid #1E293B;
+  background: transparent;
+  user-select: none;
+}
+thead th.num { text-align: right; }
+thead th.sortable { cursor: pointer; transition: color 0.15s; }
+thead th.sortable:hover { color: #A78BFA; }
+thead th.sortable.sort-asc::after { content: " ▲"; font-size: 10px; color: #A78BFA; }
+thead th.sortable.sort-desc::after { content: " ▼"; font-size: 10px; color: #A78BFA; }
+tbody td {
+  padding: 12px 14px; border-bottom: 1px solid #1E293B;
+  color: #E2E8F0;
+}
+tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:hover td { background: #1A2538; }
+tbody tr:last-child td { border-bottom: none; }
+
+td.name { font-weight: 600; color: #F1F5F9; }
+td .faint { color: #64748B; font-size: 12px; }
+
+/* Band / Status chips */
+.chip {
+  display: inline-block; padding: 3px 10px; border-radius: 11px;
+  font-size: 11px; font-weight: 600; white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.band-star { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.band-solid { background: rgba(52, 211, 153, 0.15); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.3); }
+.band-watch { background: rgba(234, 179, 8, 0.15); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
+.band-action { background: rgba(248, 113, 113, 0.15); color: #F87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+.band-onboard { background: rgba(96, 165, 250, 0.15); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.3); }
+.band-term { background: rgba(100, 116, 139, 0.15); color: #94A3B8; border: 1px solid rgba(100, 116, 139, 0.3); }
+.chip.status { background: rgba(100, 116, 139, 0.2); color: #CBD5E1; border: 1px solid rgba(100, 116, 139, 0.3); }
+.chip.status.active { background: rgba(52, 211, 153, 0.15); color: #34D399; }
+.chip.status.onboarding { background: rgba(96, 165, 250, 0.15); color: #60A5FA; }
+.chip.status.watch { background: rgba(234, 179, 8, 0.15); color: #EAB308; }
+.chip.status.probation { background: rgba(251, 146, 60, 0.15); color: #FB923C; }
+
+/* Group color chips — distinct per group */
+.grp-G1 { background: rgba(96, 165, 250, 0.2); color: #93C5FD; border: 1px solid rgba(96, 165, 250, 0.4); }
+.grp-G2 { background: rgba(52, 211, 153, 0.2); color: #6EE7B7; border: 1px solid rgba(52, 211, 153, 0.4); }
+.grp-G3 { background: rgba(251, 146, 60, 0.2); color: #FDBA74; border: 1px solid rgba(251, 146, 60, 0.4); }
+.grp-G4 { background: rgba(167, 139, 250, 0.2); color: #C4B5FD; border: 1px solid rgba(167, 139, 250, 0.4); }
+.grp-G5 { background: rgba(248, 113, 113, 0.2); color: #FCA5A5; border: 1px solid rgba(248, 113, 113, 0.4); }
+.grp-G6 { background: rgba(34, 211, 238, 0.2); color: #67E8F9; border: 1px solid rgba(34, 211, 238, 0.4); }
+.grp-G7 { background: rgba(250, 204, 21, 0.2); color: #FDE047; border: 1px solid rgba(250, 204, 21, 0.4); }
+.grp-G8 { background: rgba(236, 72, 153, 0.2); color: #F9A8D4; border: 1px solid rgba(236, 72, 153, 0.4); }
+.grp-G9 { background: rgba(148, 163, 184, 0.2); color: #CBD5E1; border: 1px solid rgba(148, 163, 184, 0.4); }
+.grp-Behzad-Team { background: rgba(139, 92, 246, 0.25); color: #DDD6FE; border: 1px solid rgba(139, 92, 246, 0.4); }
+
+/* Numeric score cells with tint */
+.s-cell {
+  display: inline-block; min-width: 28px; padding: 2px 8px; border-radius: 4px;
+  font-weight: 700; font-size: 12px; text-align: center;
+}
+.s-1 { background: rgba(248, 113, 113, 0.2); color: #F87171; }
+.s-2 { background: rgba(251, 146, 60, 0.2); color: #FB923C; }
+.s-3 { background: rgba(234, 179, 8, 0.2); color: #EAB308; }
+.s-4 { background: rgba(132, 204, 22, 0.2); color: #A3E635; }
+.s-5 { background: rgba(52, 211, 153, 0.2); color: #34D399; }
+.s-na { color: #475569; font-size: 11px; font-weight: 500; }
+
+.big-score {
+  font-size: 16px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.big-score.blue { color: #60A5FA; }
+
+/* Distribution bar chart */
+.bar-chart { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.bar-row { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.bar-row .bar-label { min-width: 130px; color: #E2E8F0; font-weight: 500; }
+.bar-row .bar-track {
+  flex: 1; height: 24px; background: #1E293B; border-radius: 6px;
+  overflow: hidden; position: relative;
+}
+.bar-row .bar-fill {
+  height: 100%; border-radius: 6px;
+  display: flex; align-items: center; padding-left: 10px;
+  color: #0B1120; font-weight: 700; font-size: 12px;
+  min-width: 20px;
+}
+.bar-fill.c-star { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+.bar-fill.c-solid { background: linear-gradient(90deg, #10B981, #34D399); }
+.bar-fill.c-watch { background: linear-gradient(90deg, #CA8A04, #EAB308); }
+.bar-fill.c-action { background: linear-gradient(90deg, #DC2626, #F87171); }
+.bar-fill.c-onboard { background: linear-gradient(90deg, #2563EB, #60A5FA); }
+.bar-row .bar-count { min-width: 40px; text-align: right; font-weight: 600; color: #94A3B8; }
+
+/* Events banner */
+.events { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 12px; }
+.event-card {
+  background: #1A2538; border-left: 3px solid #F59E0B;
+  padding: 12px 14px; border-radius: 6px; font-size: 13px;
+}
+.event-card .title { font-weight: 600; color: #F1F5F9; margin-bottom: 3px; }
+.event-card .desc { color: #94A3B8; font-size: 12px; line-height: 1.5; }
+.event-card.term { border-left-color: #F87171; }
+.event-card.new { border-left-color: #60A5FA; }
+.event-card.change { border-left-color: #A78BFA; }
+.event-card.risk { border-left-color: #EAB308; }
+
+/* Filter bar */
+.filters { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.filters input, .filters select {
+  background: #121B2E; border: 1px solid #1E293B; color: #E2E8F0;
+  padding: 8px 12px; border-radius: 6px; font-size: 13px; font-family: inherit;
+}
+.filters input { min-width: 220px; }
+.filters input:focus, .filters select:focus { outline: 2px solid #60A5FA; border-color: #60A5FA; }
+.filters label { font-size: 12px; color: #64748B; }
+.filters .count { margin-left: auto; color: #64748B; font-size: 12px; }
+
+/* Alumni card */
+.alumni-card {
+  background: #121B2E; border: 1px solid #1E293B;
+  border-left: 3px solid #F87171; border-radius: 8px;
+  padding: 16px 20px; margin-bottom: 10px;
+}
+.alumni-head { display: flex; justify-content: space-between; align-items: baseline; }
+.alumni-name { font-weight: 700; font-size: 15px; color: #F1F5F9; }
+.alumni-reason { font-size: 13px; color: #F87171; margin-top: 6px; }
+.alumni-stats {
+  display: flex; gap: 16px; font-size: 12px; color: #94A3B8;
+  margin-top: 10px; flex-wrap: wrap;
+}
+.alumni-stats b { color: #E2E8F0; }
+
+.lessons {
+  background: #121B2E; border-left: 3px solid #FBBF24;
+  padding: 16px 22px; border-radius: 8px; margin-top: 14px;
+}
+.lessons h3 { color: #FBBF24; font-size: 14px; margin-bottom: 10px; }
+.lessons ul { padding-left: 20px; }
+.lessons li { font-size: 13px; margin: 6px 0; color: #CBD5E1; line-height: 1.6; }
+
+/* Methodology */
+.rubric-item {
+  background: #121B2E; border-left: 3px solid #60A5FA;
+  padding: 14px 18px; border-radius: 8px; margin-bottom: 10px;
+}
+.rubric-title { font-weight: 700; font-size: 14px; color: #F1F5F9; margin-bottom: 6px; }
+.rubric-body { font-size: 13px; color: #94A3B8; white-space: pre-wrap; line-height: 1.7; }
+
+/* Modal */
+.overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7);
+  display: none; align-items: center; justify-content: center;
+  z-index: 100; padding: 20px; }
+.overlay.open { display: flex; }
+.modal {
+  background: #121B2E; border: 1px solid #1E293B; border-radius: 12px;
+  max-width: 820px; width: 100%; max-height: 92vh; overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+.modal-head {
+  padding: 22px 28px; border-bottom: 1px solid #1E293B;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  position: sticky; top: 0; background: #121B2E; z-index: 2;
+}
+.modal-head h2 { font-size: 20px; color: #F1F5F9; }
+.modal-head .sub { font-size: 12.5px; color: #94A3B8; margin-top: 4px; }
+.modal-head .close {
+  background: none; border: none; font-size: 22px; cursor: pointer;
+  color: #64748B; padding: 0 6px;
+}
+.modal-head .close:hover { color: #F1F5F9; }
+.modal-body { padding: 20px 28px 26px; }
+
+.mod-sect {
+  font-size: 12px; font-weight: 700; color: #60A5FA;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin: 20px 0 10px; padding-bottom: 6px;
+  border-bottom: 1px solid #1E293B;
+}
+.mod-sect:first-child { margin-top: 0; }
+
+.mod-big {
+  display: flex; gap: 18px; align-items: center;
+  background: #0B1120; border: 1px solid #1E293B;
+  padding: 18px 22px; border-radius: 10px; margin-bottom: 8px;
+}
+.mod-big .score-big { font-size: 38px; font-weight: 800; color: #60A5FA; line-height: 1; }
+.mod-big .score-unit { font-size: 14px; color: #64748B; margin-left: 4px; }
+.mod-big .meta { font-size: 12.5px; color: #94A3B8; }
+.mod-big .meta b { color: #E2E8F0; }
+
+.mod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+.mod-cell {
+  background: #0B1120; border: 1px solid #1E293B;
+  padding: 8px 12px; border-radius: 6px;
+}
+.mod-cell .k { font-size: 10px; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em; }
+.mod-cell .v { font-weight: 700; font-size: 15px; color: #F1F5F9; margin-top: 2px; }
+.mod-cell .v.red { color: #F87171; }
+
+.mod-rows { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+@media (max-width: 600px) { .mod-rows { grid-template-columns: 1fr; } }
+.mod-rr {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #0B1120; padding: 10px 14px; border-radius: 6px;
+  border: 1px solid #1E293B;
+  gap: 8px;
+}
+.mod-rr .lbl { font-size: 12.5px; color: #CBD5E1; flex: 1; min-width: 0; }
+.mod-rr .lbl .tag { color: #64748B; font-size: 11px; margin-left: 6px; }
+
+/* Personal summary box at modal top */
+.summary-box {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.08), rgba(139, 92, 246, 0.08));
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  border-left: 4px solid #60A5FA;
+  padding: 14px 18px; border-radius: 8px;
+  font-size: 13.5px; color: #E2E8F0; line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+/* Clickable member chip */
+.member-chip.clickable { cursor: pointer; transition: all 0.15s; }
+.member-chip.clickable:hover { background: #60A5FA !important; color: #0B1120 !important; transform: translateY(-1px); }
+
+/* Group block name is clickable */
+.pm-card .group-block .grp-name.clickable { cursor: pointer; text-decoration: underline dotted; }
+.pm-card .group-block .grp-name.clickable:hover { color: #A78BFA; }
+
+/* Dedicated team cards (instead of table) */
+.ded-cards-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px; margin-top: 14px;
+}
+.ded-card {
+  background: #0B1120; border: 1px solid #1E293B;
+  border-left: 3px solid #A78BFA; border-radius: 8px;
+  padding: 12px 14px;
+}
+.ded-card .ded-name { font-weight: 700; color: #F1F5F9; font-size: 14px; }
+.ded-card .ded-range { font-size: 12px; color: #64748B; margin-top: 2px; }
+.ded-card .ded-vol {
+  font-size: 20px; font-weight: 800; color: #A78BFA;
+  margin-top: 8px; font-variant-numeric: tabular-nums;
+}
+.ded-card .ded-vol .unit { font-size: 11px; color: #64748B; font-weight: 500; margin-left: 3px; }
+.ded-card .ded-status { margin-top: 6px; }
+
+footer {
+  text-align: center; padding: 20px; font-size: 11px; color: #475569;
+  border-top: 1px solid #1E293B; margin-top: 30px;
+}
+
+/* PM card */
+.pm-card {
+  background: #121B2E; border: 1px solid #1E293B; border-radius: 10px;
+  padding: 18px 22px; margin-bottom: 12px;
+}
+.pm-card .pm-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+.pm-card .pm-name { font-size: 17px; font-weight: 700; color: #F1F5F9; }
+.pm-card .pm-stats-line { font-size: 12.5px; color: #94A3B8; display: flex; gap: 14px; flex-wrap: wrap; }
+.pm-card .pm-stats-line b { color: #E2E8F0; font-weight: 600; }
+.pm-card .pm-stats-line .delay-high { color: #F87171; }
+.pm-card .group-block {
+  background: #0B1120; border: 1px solid #1E293B; border-radius: 8px;
+  padding: 12px 16px; margin-top: 8px;
+}
+.pm-card .group-block .grp-name { font-weight: 700; color: #60A5FA; font-size: 13px; margin-bottom: 6px; }
+.pm-card .group-block .grp-members { font-size: 13px; color: #CBD5E1; }
+.pm-card .group-block .grp-members .member-chip {
+  display: inline-block; background: #1A2538; padding: 3px 10px; border-radius: 12px;
+  margin: 2px 4px 2px 0; font-size: 12px; color: #E2E8F0;
+}
+</style></head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <h1>Freelancer Reassessment · <span style="color:#60A5FA;">Apr 20 – Apr 26, 2026</span></h1>
+    <div class="meta">数据源: 4 任务 CSV (Apr 19-23) + 24 人 WhatsApp 画像  ·  生成时间: 2026-04-25 00:13</div>
+  </div>
+
+  <!-- TOP KPI ROW -->
+  <div class="kpi-row">
+    <div class="panel">
+      <h3>概览</h3>
+      <div class="kpi-grid">
+        <div class="kpi-cell"><div class="num blue" id="n-active"></div><div class="sub">在岗总数</div></div>
+        <div class="kpi-cell"><div class="num purple" id="n-events"></div><div class="sub">本周交付事件</div></div>
+        <div class="kpi-cell"><div class="num green" id="n-volume"></div><div class="sub">本周视频量</div></div>
+        <div class="kpi-cell"><div class="num amber" id="n-avg"></div><div class="sub">在岗综合均分 /10</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>分档分布</h3>
+      <div class="bar-chart" id="band-chart"></div>
+    </div>
+    <div class="panel">
+      <h3>本周动态</h3>
+      <div class="kpi-grid">
+        <div class="kpi-cell"><div class="num red" id="n-terminated"></div><div class="sub">🚫 本周开除</div></div>
+        <div class="kpi-cell"><div class="num blue" id="n-onboarding"></div><div class="sub">🆕 新人观察</div></div>
+        <div class="kpi-cell"><div class="num green" id="n-adv-pct"></div><div class="sub">✅ 提前交付率</div></div>
+        <div class="kpi-cell"><div class="num red" id="n-delay-pct"></div><div class="sub">⚠️ 延迟率</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY EVENTS -->
+  <h2 class="sect">🔔 本周关键动态</h2>
+  <div class="events">
+    <div class="event-card term">
+      <div class="title">🚫 3 人开除</div>
+      <div class="desc">Megawati (G1) · 放弃任务 / Denislam (G4) · 首日后失联 / Prashant (G8) · 连续质量问题</div>
+    </div>
+    <div class="event-card new">
+      <div class="title">🆕 新人入职</div>
+      <div class="desc">Arreha (G1) 4.23 顶替 Megawati · 首日 Done 交付 · Saman (G8) 继续观察期</div>
+    </div>
+    <div class="event-card change">
+      <div class="title">📉 专属团队缩编</div>
+      <div class="desc">Behzad 专属团队 15 → 11 人,流失 4 位 · 本周 IC-10k 全员 Done</div>
+    </div>
+    <div class="event-card risk">
+      <div class="title">🟡 观察名单</div>
+      <div class="desc">Tania / Tahmina / Nazima / Shabnam — 本周多次延迟,需关注下周表现</div>
+    </div>
+  </div>
+
+  <!-- MAIN TABLE -->
+  <h2 class="sect">📊 综合评分 · 24 人在岗</h2>
+  <div class="filters">
+    <input id="q" type="text" placeholder="🔍 搜索名字..."/>
+    <label>组:</label>
+    <select id="f-g"><option value="">全部</option></select>
+    <label>状态:</label>
+    <select id="f-s"><option value="">全部</option>
+      <option>Active</option><option>Onboarding</option><option>Watch</option><option>Probation</option>
+    </select>
+    <label>分档:</label>
+    <select id="f-b"><option value="">全部</option>
+      <option>⭐ Star</option><option>✅ Solid</option><option>🟡 Watch</option><option>🔴 Action</option><option>🆕 观察期</option>
+    </select>
+    <span class="count" id="count"></span>
+  </div>
+  <div style="font-size:11.5px; color:#64748B; margin-bottom:6px;">
+    💡 点击任意列标题可按该列排序 · 再点一次切换升/降序
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    📝 "标注量" = 个人标注事件数(VE-2k 等多label任务,同一视频的不同label类型分别计)
+  </div>
+  <div class="panel" style="padding: 0; overflow-x: auto;">
+    <table id="main-tbl">
+      <thead><tr>
+        <th data-sort="group" class="sortable">组</th>
+        <th data-sort="status" class="sortable">状态</th>
+        <th data-sort="name" class="sortable">姓名</th>
+        <th data-sort="pm" class="sortable">PM</th>
+        <th data-sort="hybrid_10" class="sortable num">Hybrid /10</th>
+        <th data-sort="band" class="sortable">Band</th>
+        <th data-sort="in_advance" class="sortable num">In Adv</th>
+        <th data-sort="on_time" class="sortable num">On</th>
+        <th data-sort="done" class="sortable num">Done</th>
+        <th data-sort="delay" class="sortable num">Delay</th>
+        <th data-sort="events" class="sortable num">Events</th>
+        <th data-sort="volume" class="sortable num">标注量</th>
+        <th data-sort="perf" class="sortable num">Perf</th>
+        <th data-sort="style" class="sortable num">Style</th>
+      </tr></thead>
+      <tbody id="main-body"></tbody>
+    </table>
+  </div>
+
+  <!-- GROUP COMPARISON -->
+  <h2 class="sect">🏆 各组表现对比</h2>
+  <div style="font-size:11.5px; color:#64748B; margin-bottom:6px;">
+    💡 点击列标题排序 · 点击组名或组内最佳跳转至该人详情
+  </div>
+  <div class="panel" style="padding: 0; overflow-x: auto;">
+    <table id="group-tbl">
+      <thead><tr>
+        <th data-sort="group" class="sortable">组</th>
+        <th data-sort="pm" class="sortable">PM</th>
+        <th data-sort="people" class="sortable num">人数</th>
+        <th data-sort="in_adv" class="sortable num">In Adv</th>
+        <th data-sort="on_done" class="sortable num">On+Done</th>
+        <th data-sort="delay" class="sortable num">Delay</th>
+        <th data-sort="adv_pct" class="sortable num">提前率</th>
+        <th data-sort="delay_pct" class="sortable num">延迟率</th>
+        <th data-sort="volume" class="sortable num">标注量</th>
+        <th data-sort="avg_hybrid" class="sortable num">组均分</th>
+        <th data-sort="best" class="sortable">组内最佳</th>
+      </tr></thead>
+      <tbody id="group-body"></tbody>
+    </table>
+  </div>
+
+  <!-- PM OWNERSHIP -->
+  <h2 class="sect">👔 PM Ownership · 负载 + 成员</h2>
+  <div id="pm-body-rows"></div>
+
+  <!-- DEDICATED TEAM -->
+  <h2 class="sect">🌟 Behzad 专属团队 · 单独评估</h2>
+  <div class="panel">
+    <div style="display: flex; gap: 40px; margin-bottom: 8px; flex-wrap: wrap;">
+      <div class="kpi-cell"><div class="num blue" id="ded-n"></div><div class="sub">团队人数 <span style="color:#F87171">(上周 15)</span></div></div>
+      <div class="kpi-cell"><div class="num purple" id="ded-vol"></div><div class="sub">本周标注量</div></div>
+      <div class="kpi-cell"><div class="num green" id="ded-done"></div><div class="sub">完成率</div></div>
+      <div class="kpi-cell"><div class="num amber">260419-IC-10k</div><div class="sub">本周任务</div></div>
+    </div>
+    <div style="font-size:12.5px; color:#94A3B8; margin-top:12px; padding:10px 14px; background:#0B1120; border-left:3px solid #A78BFA; border-radius:6px;">
+      <b>💡 说明:</b> 10k unique videos × 3 rounds cross-annotation = 30k events · 每人 2000-5000 events · 评估口径与 distributed team 不同(批量非每日交付)
+    </div>
+    <div style="overflow-x: auto; margin-top:14px;">
+      <table id="ded-tbl">
+        <thead><tr>
+          <th>成员</th>
+          <th>Range</th>
+          <th class="num">标注量 (events)</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody id="ded-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ALUMNI -->
+  <h2 class="sect">🚫 已离场 · 本周 3 人开除</h2>
+  <div id="alumni-list"></div>
+  <div class="lessons">
+    <h3>📝 复盘 · 本周 3 人开除的共性与教训</h3>
+    <ul>
+      <li>3 人共性: 都在本周前就有预警信号(连续延迟 / 质量问题 / 沟通消极),但到任务被重做或放弃才正式处理</li>
+      <li>时间损失: Prashant 任务被 Smitha 重做(双倍成本);Megawati 300 个任务转给 Vignesh;Denislam 剩余任务临时 redistribute</li>
+      <li>早期识别: 若有平台 Quality score + WhatsApp Delay 趋势,每个 case 可提前 1 周识别</li>
+      <li>下次改进: 建立每周"2 次延迟 或 1 次质量红 flag"自动进 Probation,连续 2 周未改善自动讨论终止</li>
+    </ul>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <h2 class="sect">📖 评分方法</h2>
+  <div id="methodology"></div>
+
+  <footer>Generated 2026-04-25 00:13 · Reassessment_Performance+Style.xlsx 为本报告的数据源 Excel</footer>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <h2 id="m-name"></h2>
+        <div class="sub" id="m-sub"></div>
+      </div>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
+
+<script>
+const DATA = {"week": "Apr 20 – Apr 26, 2026", "active": [{"name": "Alve", "group": "G5", "pm": "Meng", "has_task": true, "in_advance": 4, "on_time": 0, "done": 1, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 5, "Quality": 4, "Responsiveness": 5, "Communication": 5, "Reliability": 5, "Initiative": 5, "Learning curve": 5, "Attitude": 5}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 5, "perf": 4.33, "perf_subs": {"success": 5, "advance": 5, "volume": 3, "rate_raw": 100.0, "adv_raw": 80.0, "net_extras": 20, "events": 5}, "style": 5.0, "style_subs": {"Responsiveness": 5, "Communication": 5, "Initiative": 5, "Learning": 5, "Attitude": 5, "Thoughtfulness": 5, "PM满意度": 5}, "hybrid": 4.5, "hybrid_10": 9.0, "band": "⭐ Star", "summary": "⭐ 本周顶配表现 · 成功率 100% · 提前 4/5 次 · Style 5.0/5。建议保留+加码任务+作为团队标杆。"}, {"name": "Smitha", "group": "G2", "pm": "Dini", "has_task": true, "in_advance": 5, "on_time": 0, "done": 0, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 3020, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 3, "Responsiveness": 3, "Communication": 3, "Reliability": 4, "Initiative": 4, "Learning curve": 4, "Attitude": 5}, "thoughtfulness": 3, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.67, "perf_subs": {"success": 5, "advance": 5, "volume": 4, "rate_raw": 100.0, "adv_raw": 100.0, "net_extras": 520, "events": 5}, "style": 3.71, "style_subs": {"Responsiveness": 3, "Communication": 3, "Initiative": 4, "Learning": 4, "Attitude": 5, "Thoughtfulness": 3, "PM满意度": 4}, "hybrid": 4.43, "hybrid_10": 8.86, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · 超出baseline 520 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Kim", "group": "G6", "pm": "Meng", "has_task": true, "in_advance": 5, "on_time": 0, "done": 0, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 4, "Responsiveness": 3, "Communication": 5, "Reliability": 4, "Initiative": 5, "Learning curve": 5, "Attitude": 5}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 5, "perf": 4.33, "perf_subs": {"success": 5, "advance": 5, "volume": 3, "rate_raw": 100.0, "adv_raw": 100.0, "net_extras": 20, "events": 5}, "style": 4.71, "style_subs": {"Responsiveness": 3, "Communication": 5, "Initiative": 5, "Learning": 5, "Attitude": 5, "Thoughtfulness": 5, "PM满意度": 5}, "hybrid": 4.42, "hybrid_10": 8.85, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 5/5。保持现状,无需特殊行动。"}, {"name": "Darren", "group": "G4", "pm": "Meng", "has_task": true, "in_advance": 5, "on_time": 0, "done": 0, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 3, "Responsiveness": 3, "Communication": 4, "Reliability": 4, "Initiative": 5, "Learning curve": 4, "Attitude": 4}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.33, "perf_subs": {"success": 5, "advance": 5, "volume": 3, "rate_raw": 100.0, "adv_raw": 100.0, "net_extras": 20, "events": 5}, "style": 4.14, "style_subs": {"Responsiveness": 3, "Communication": 4, "Initiative": 5, "Learning": 4, "Attitude": 4, "Thoughtfulness": 5, "PM满意度": 4}, "hybrid": 4.28, "hybrid_10": 8.56, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Behzad", "group": "G3", "pm": "Dini", "has_task": true, "in_advance": 2, "on_time": 1, "done": 2, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2920, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 5, "Quality": 4, "Responsiveness": 5, "Communication": 4, "Reliability": 4, "Initiative": 5, "Learning curve": 5, "Attitude": 5}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 5, "perf": 4.0, "perf_subs": {"success": 5, "advance": 3, "volume": 4, "rate_raw": 100.0, "adv_raw": 40.0, "net_extras": 420, "events": 5}, "style": 4.86, "style_subs": {"Responsiveness": 5, "Communication": 4, "Initiative": 5, "Learning": 5, "Attitude": 5, "Thoughtfulness": 5, "PM满意度": 5}, "hybrid": 4.21, "hybrid_10": 8.43, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · 超出baseline 420 · PM满意度 5/5。保持现状,无需特殊行动。"}, {"name": "Hanif", "group": "G7", "pm": "Xuan", "has_task": true, "in_advance": 5, "on_time": 0, "done": 0, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2528, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": null, "Quality": null, "Responsiveness": 4, "Communication": 3, "Reliability": 3, "Initiative": 3, "Learning curve": null, "Attitude": 4}, "thoughtfulness": 2, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.33, "perf_subs": {"success": 5, "advance": 5, "volume": 3, "rate_raw": 100.0, "adv_raw": 100.0, "net_extras": 28, "events": 5}, "style": 3.33, "style_subs": {"Responsiveness": 4, "Communication": 3, "Initiative": 3, "Learning": null, "Attitude": 4, "Thoughtfulness": 2, "PM满意度": 4}, "hybrid": 4.08, "hybrid_10": 8.16, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Abhiraj", "group": "G3", "pm": "Dini", "has_task": true, "in_advance": 3, "on_time": 1, "done": 1, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 3, "Responsiveness": 3, "Communication": 5, "Reliability": 4, "Initiative": 4, "Learning curve": 4, "Attitude": 4}, "thoughtfulness": 3, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.0, "perf_subs": {"success": 5, "advance": 4, "volume": 3, "rate_raw": 100.0, "adv_raw": 60.0, "net_extras": 20, "events": 5}, "style": 3.86, "style_subs": {"Responsiveness": 3, "Communication": 5, "Initiative": 4, "Learning": 4, "Attitude": 4, "Thoughtfulness": 3, "PM满意度": 4}, "hybrid": 3.96, "hybrid_10": 7.93, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Otto", "group": "G4", "pm": "Meng", "has_task": true, "in_advance": 3, "on_time": 1, "done": 1, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 3, "Responsiveness": 3, "Communication": 4, "Reliability": 4, "Initiative": 4, "Learning curve": 4, "Attitude": 4}, "thoughtfulness": 3, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.0, "perf_subs": {"success": 5, "advance": 4, "volume": 3, "rate_raw": 100.0, "adv_raw": 60.0, "net_extras": 20, "events": 5}, "style": 3.71, "style_subs": {"Responsiveness": 3, "Communication": 4, "Initiative": 4, "Learning": 4, "Attitude": 4, "Thoughtfulness": 3, "PM满意度": 4}, "hybrid": 3.93, "hybrid_10": 7.86, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Mao", "group": "G1", "pm": "Dini", "has_task": true, "in_advance": 2, "on_time": 0, "done": 2, "delay": 0, "in_progress": 1, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 4, "Responsiveness": 5, "Communication": 5, "Reliability": 4, "Initiative": 5, "Learning curve": 4, "Attitude": 5}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 3.67, "perf_subs": {"success": 5, "advance": 3, "volume": 3, "rate_raw": 100.0, "adv_raw": 50.0, "net_extras": 20, "events": 5}, "style": 4.71, "style_subs": {"Responsiveness": 5, "Communication": 5, "Initiative": 5, "Learning": 4, "Attitude": 5, "Thoughtfulness": 5, "PM满意度": 4}, "hybrid": 3.93, "hybrid_10": 7.86, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Liaquat", "group": "G8", "pm": "Xuan", "has_task": true, "in_advance": 4, "on_time": 0, "done": 0, "delay": 1, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": null, "Quality": 4, "Responsiveness": 4, "Communication": 5, "Reliability": 4, "Initiative": 5, "Learning curve": null, "Attitude": 4}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 5, "perf": 3.67, "perf_subs": {"success": 3, "advance": 5, "volume": 3, "rate_raw": 80.0, "adv_raw": 80.0, "net_extras": 20, "events": 5}, "style": 4.67, "style_subs": {"Responsiveness": 4, "Communication": 5, "Initiative": 5, "Learning": null, "Attitude": 4, "Thoughtfulness": 5, "PM满意度": 5}, "hybrid": 3.92, "hybrid_10": 7.84, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 80% · 延迟 1 次 · PM满意度 5/5。保持现状,无需特殊行动。"}, {"name": "Gilbert", "group": "G7", "pm": "Xuan", "has_task": true, "in_advance": 3, "on_time": 0, "done": 2, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2525, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 2, "Quality": 3, "Responsiveness": 3, "Communication": 3, "Reliability": 2, "Initiative": 2, "Learning curve": 3, "Attitude": 3}, "thoughtfulness": 4, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.0, "perf_subs": {"success": 5, "advance": 4, "volume": 3, "rate_raw": 100.0, "adv_raw": 60.0, "net_extras": 25, "events": 5}, "style": 3.14, "style_subs": {"Responsiveness": 3, "Communication": 3, "Initiative": 2, "Learning": 3, "Attitude": 3, "Thoughtfulness": 4, "PM满意度": 4}, "hybrid": 3.79, "hybrid_10": 7.57, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Yoseph", "group": "G2", "pm": "Dini", "has_task": true, "in_advance": 2, "on_time": 0, "done": 3, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2671, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 5, "Quality": 3, "Responsiveness": 3, "Communication": 4, "Reliability": 4, "Initiative": 5, "Learning curve": 4, "Attitude": 5}, "thoughtfulness": 3, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 3.67, "perf_subs": {"success": 5, "advance": 3, "volume": 3, "rate_raw": 100.0, "adv_raw": 40.0, "net_extras": 171, "events": 5}, "style": 4.0, "style_subs": {"Responsiveness": 3, "Communication": 4, "Initiative": 5, "Learning": 4, "Attitude": 5, "Thoughtfulness": 3, "PM满意度": 4}, "hybrid": 3.75, "hybrid_10": 7.5, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Ariel", "group": "G2", "pm": "Dini", "has_task": true, "in_advance": 3, "on_time": 0, "done": 2, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": null, "Responsiveness": 2, "Communication": 2, "Reliability": 5, "Initiative": 2, "Learning curve": 3, "Attitude": 3}, "thoughtfulness": 1, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 4.0, "perf_subs": {"success": 5, "advance": 4, "volume": 3, "rate_raw": 100.0, "adv_raw": 60.0, "net_extras": 20, "events": 5}, "style": 2.43, "style_subs": {"Responsiveness": 2, "Communication": 2, "Initiative": 2, "Learning": 3, "Attitude": 3, "Thoughtfulness": 1, "PM满意度": 4}, "hybrid": 3.61, "hybrid_10": 7.21, "band": "✅ Solid", "summary": "✅ 稳定交付 · 成功率 100% · 延迟 0 次 · PM满意度 4/5。保持现状,无需特殊行动。"}, {"name": "Vignesh", "group": "G3", "pm": "Dini", "has_task": true, "in_advance": 3, "on_time": 1, "done": 0, "delay": 1, "in_progress": 0, "n_tasks": 3, "volume": 2820, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 2, "Responsiveness": 2, "Communication": 2, "Reliability": 3, "Initiative": 4, "Learning curve": 2, "Attitude": 3}, "thoughtfulness": 2, "status": ["✅ Active", ""], "pm_sat": 4, "perf": 3.67, "perf_subs": {"success": 3, "advance": 4, "volume": 4, "rate_raw": 80.0, "adv_raw": 60.0, "net_extras": 320, "events": 5}, "style": 2.71, "style_subs": {"Responsiveness": 2, "Communication": 2, "Initiative": 4, "Learning": 2, "Attitude": 3, "Thoughtfulness": 2, "PM满意度": 4}, "hybrid": 3.43, "hybrid_10": 6.86, "band": "🟡 Watch", "summary": "🟡 需观察 · Style 偏低 (2.7/5)。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Rahadatul", "group": "G6", "pm": "Meng", "has_task": true, "in_advance": 4, "on_time": 0, "done": 0, "delay": 1, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": null, "Quality": null, "Responsiveness": 4, "Communication": 2, "Reliability": 4, "Initiative": 2, "Learning curve": null, "Attitude": 3}, "thoughtfulness": 2, "status": ["✅ Active", ""], "pm_sat": 3, "perf": 3.67, "perf_subs": {"success": 3, "advance": 5, "volume": 3, "rate_raw": 80.0, "adv_raw": 80.0, "net_extras": 20, "events": 5}, "style": 2.67, "style_subs": {"Responsiveness": 4, "Communication": 2, "Initiative": 2, "Learning": null, "Attitude": 3, "Thoughtfulness": 2, "PM满意度": 3}, "hybrid": 3.42, "hybrid_10": 6.84, "band": "🟡 Watch", "summary": "🟡 需观察 · Style 偏低 (2.7/5)。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Fitri", "group": "G6", "pm": "Meng", "has_task": true, "in_advance": 3, "on_time": 0, "done": 0, "delay": 2, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 3, "Responsiveness": 5, "Communication": 4, "Reliability": 4, "Initiative": 4, "Learning curve": 4, "Attitude": 5}, "thoughtfulness": 5, "status": ["✅ Active", ""], "pm_sat": 5, "perf": 3.0, "perf_subs": {"success": 2, "advance": 4, "volume": 3, "rate_raw": 60.0, "adv_raw": 60.0, "net_extras": 20, "events": 5}, "style": 4.57, "style_subs": {"Responsiveness": 5, "Communication": 4, "Initiative": 4, "Learning": 4, "Attitude": 5, "Thoughtfulness": 5, "PM满意度": 5}, "hybrid": 3.39, "hybrid_10": 6.79, "band": "🟡 Watch", "summary": "🟡 需观察 · 本周 2 次延迟。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Fiza", "group": "G1", "pm": "Dini", "has_task": true, "in_advance": 3, "on_time": 1, "done": 0, "delay": 1, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 4, "Quality": 4, "Responsiveness": 4, "Communication": 3, "Reliability": 3, "Initiative": 3, "Learning curve": 4, "Attitude": 4}, "thoughtfulness": 3, "status": ["✅ Active", ""], "pm_sat": 3, "perf": 3.33, "perf_subs": {"success": 3, "advance": 4, "volume": 3, "rate_raw": 80.0, "adv_raw": 60.0, "net_extras": 20, "events": 5}, "style": 3.43, "style_subs": {"Responsiveness": 4, "Communication": 3, "Initiative": 3, "Learning": 4, "Attitude": 4, "Thoughtfulness": 3, "PM满意度": 3}, "hybrid": 3.35, "hybrid_10": 6.71, "band": "🟡 Watch", "summary": "🟡 需观察 · 综合分在 watch 区。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Ayesha", "group": "G8", "pm": "Xuan", "has_task": true, "in_advance": 3, "on_time": 0, "done": 0, "delay": 2, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": null, "Quality": 4, "Responsiveness": 3, "Communication": 4, "Reliability": 4, "Initiative": 4, "Learning curve": null, "Attitude": 5}, "thoughtfulness": 2, "status": ["✅ Active", ""], "pm_sat": 3, "perf": 3.0, "perf_subs": {"success": 2, "advance": 4, "volume": 3, "rate_raw": 60.0, "adv_raw": 60.0, "net_extras": 20, "events": 5}, "style": 3.5, "style_subs": {"Responsiveness": 3, "Communication": 4, "Initiative": 4, "Learning": null, "Attitude": 5, "Thoughtfulness": 2, "PM满意度": 3}, "hybrid": 3.12, "hybrid_10": 6.25, "band": "🟡 Watch", "summary": "🟡 需观察 · 本周 2 次延迟。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Nazima", "group": "G5", "pm": "Meng", "has_task": true, "in_advance": 2, "on_time": 1, "done": 0, "delay": 2, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 3, "Quality": 4, "Responsiveness": 4, "Communication": 3, "Reliability": 4, "Initiative": 3, "Learning curve": 4, "Attitude": 4}, "thoughtfulness": 4, "status": ["✅ Active", ""], "pm_sat": 3, "perf": 2.67, "perf_subs": {"success": 2, "advance": 3, "volume": 3, "rate_raw": 60.0, "adv_raw": 40.0, "net_extras": 20, "events": 5}, "style": 3.57, "style_subs": {"Responsiveness": 4, "Communication": 3, "Initiative": 3, "Learning": 4, "Attitude": 4, "Thoughtfulness": 4, "PM满意度": 3}, "hybrid": 2.9, "hybrid_10": 5.79, "band": "🟡 Watch", "summary": "🟡 需观察 · 本周 2 次延迟。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Shabnam", "group": "G4", "pm": "Meng", "has_task": true, "in_advance": 2, "on_time": 0, "done": 1, "delay": 2, "in_progress": 0, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": null, "Quality": null, "Responsiveness": 3, "Communication": 2, "Reliability": 3, "Initiative": 2, "Learning curve": null, "Attitude": 3}, "thoughtfulness": 2, "status": ["✅ Active", ""], "pm_sat": 2, "perf": 2.67, "perf_subs": {"success": 2, "advance": 3, "volume": 3, "rate_raw": 60.0, "adv_raw": 40.0, "net_extras": 20, "events": 5}, "style": 2.33, "style_subs": {"Responsiveness": 3, "Communication": 2, "Initiative": 2, "Learning": null, "Attitude": 3, "Thoughtfulness": 2, "PM满意度": 2}, "hybrid": 2.58, "hybrid_10": 5.17, "band": "🟡 Watch", "summary": "🟡 需观察 · 本周 2 次延迟 · Style 偏低 (2.3/5)。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Arreha", "group": "G1", "pm": "Dini", "has_task": true, "in_advance": 0, "on_time": 0, "done": 1, "delay": 0, "in_progress": 0, "n_tasks": 1, "volume": 510, "tasks_list": ["260422-VE-2k"], "scores": {"Productivity": null, "Quality": null, "Responsiveness": 4, "Communication": 4, "Reliability": null, "Initiative": 3, "Learning curve": null, "Attitude": 5}, "thoughtfulness": 2, "status": ["🆕 Onboarding", "4.23 新人 · 顶替 Megawati"], "pm_sat": 3, "perf": 3.0, "perf_subs": {"success": 5, "advance": 1, "volume": 3, "rate_raw": 100.0, "adv_raw": 0.0, "net_extras": 10, "events": 1}, "style": 3.5, "style_subs": {"Responsiveness": 4, "Communication": 4, "Initiative": 3, "Learning": null, "Attitude": 5, "Thoughtfulness": 2, "PM满意度": 3}, "hybrid": 3.12, "hybrid_10": 6.25, "band": "🆕 观察期", "summary": "🆕 新人观察期。本周 1 次交付,Done 居多。继续观察首周表现。"}, {"name": "Saman", "group": "G8", "pm": "Xuan", "has_task": true, "in_advance": 0, "on_time": 0, "done": 1, "delay": 1, "in_progress": 0, "n_tasks": 1, "volume": 1020, "tasks_list": ["260422-VE-2k"], "scores": {"Productivity": null, "Quality": null, "Responsiveness": 3, "Communication": 4, "Reliability": null, "Initiative": 4, "Learning curve": null, "Attitude": 4}, "thoughtfulness": 1, "status": ["🆕 Onboarding", "4.22 新人"], "pm_sat": 3, "perf": 2.0, "perf_subs": {"success": 2, "advance": 1, "volume": 3, "rate_raw": 50.0, "adv_raw": 0.0, "net_extras": 20, "events": 2}, "style": 3.17, "style_subs": {"Responsiveness": 3, "Communication": 4, "Initiative": 4, "Learning": null, "Attitude": 4, "Thoughtfulness": 1, "PM满意度": 3}, "hybrid": 2.29, "hybrid_10": 4.58, "band": "🆕 观察期", "summary": "🆕 新人观察期。本周 2 次交付,Done 居多。继续观察首周表现。"}, {"name": "Tania", "group": "G7", "pm": "Xuan", "has_task": true, "in_advance": 1, "on_time": 1, "done": 0, "delay": 2, "in_progress": 1, "n_tasks": 3, "volume": 2528, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 3, "Quality": 3, "Responsiveness": 4, "Communication": 5, "Reliability": 3, "Initiative": 4, "Learning curve": 3, "Attitude": 5}, "thoughtfulness": 5, "status": ["🟡 Watch", "本周延迟率≥50% (2/4)"], "pm_sat": 4, "perf": 2.33, "perf_subs": {"success": 2, "advance": 2, "volume": 3, "rate_raw": 50.0, "adv_raw": 25.0, "net_extras": 28, "events": 5}, "style": 4.29, "style_subs": {"Responsiveness": 4, "Communication": 5, "Initiative": 4, "Learning": 3, "Attitude": 5, "Thoughtfulness": 5, "PM满意度": 4}, "hybrid": 2.82, "hybrid_10": 5.64, "band": "🟡 Watch", "summary": "🟡 需观察 · 本周 2 次延迟 · 提前率仅 25%。建议 1-on-1 明确下周预期,连续 2 周未改善进 Probation。"}, {"name": "Tahmina", "group": "G5", "pm": "Meng", "has_task": true, "in_advance": 1, "on_time": 0, "done": 1, "delay": 2, "in_progress": 1, "n_tasks": 3, "volume": 2520, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {"Productivity": 2, "Quality": 3, "Responsiveness": 2, "Communication": 2, "Reliability": 2, "Initiative": 2, "Learning curve": 2, "Attitude": 3}, "thoughtfulness": 2, "status": ["🟡 Watch", "本周延迟率≥50% (2/4)"], "pm_sat": 2, "perf": 2.33, "perf_subs": {"success": 2, "advance": 2, "volume": 3, "rate_raw": 50.0, "adv_raw": 25.0, "net_extras": 20, "events": 5}, "style": 2.14, "style_subs": {"Responsiveness": 2, "Communication": 2, "Initiative": 2, "Learning": 2, "Attitude": 3, "Thoughtfulness": 2, "PM满意度": 2}, "hybrid": 2.28, "hybrid_10": 4.57, "band": "🔴 Action", "summary": "🔴 需介入 · 2 次延迟 · Style 严重偏低 (2.1/5)。建议本周内 1-on-1 讨论去留,连续 2 周未改善考虑终止。"}], "alumni": [{"name": "Megawati", "group": "G1", "pm": "Dini", "has_task": true, "in_advance": 1, "on_time": 2, "done": 1, "delay": 0, "in_progress": 0, "n_tasks": 3, "volume": 2010, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k", "260422-VE-2k"], "scores": {}, "thoughtfulness": 1, "status": ["🚫 Terminated", "4.22 开除 · 多次放弃任务"], "pm_sat": 1, "perf": 3.33, "perf_subs": {"success": 5, "advance": 2, "volume": 3, "rate_raw": 100.0, "adv_raw": 25.0, "net_extras": 10, "events": 4}, "style": 1.0, "style_subs": {"Responsiveness": null, "Communication": null, "Initiative": null, "Learning": null, "Attitude": null, "Thoughtfulness": 1, "PM满意度": 1}, "hybrid": 2.75, "hybrid_10": 5.5, "band": "🚫 已开除", "summary": "🚫 已终止合作。详见「已离场」section。"}, {"name": "Denislam", "group": "G4", "pm": "Meng", "has_task": true, "in_advance": 0, "on_time": 0, "done": 0, "delay": 1, "in_progress": 0, "n_tasks": 1, "volume": 500, "tasks_list": ["260419-VQ-7k"], "scores": {}, "thoughtfulness": 1, "status": ["🚫 Terminated", "开除 · 首日延迟后失联"], "pm_sat": 1, "perf": 1.67, "perf_subs": {"success": 1, "advance": 1, "volume": 3, "rate_raw": 0.0, "adv_raw": 0.0, "net_extras": 0, "events": 1}, "style": 1.0, "style_subs": {"Responsiveness": null, "Communication": null, "Initiative": null, "Learning": null, "Attitude": null, "Thoughtfulness": 1, "PM满意度": 1}, "hybrid": 1.5, "hybrid_10": 3.0, "band": "🚫 已开除", "summary": "🚫 已终止合作。详见「已离场」section。"}, {"name": "Prashant", "group": "G8", "pm": "Xuan", "has_task": true, "in_advance": 0, "on_time": 0, "done": 0, "delay": 1, "in_progress": 1, "n_tasks": 2, "volume": 1000, "tasks_list": ["260419-VQ-7k", "260420-VQ-7k"], "scores": {}, "thoughtfulness": 1, "status": ["🚫 Terminated", "开除 · 连续两周质量问题 / 任务被重做"], "pm_sat": 1, "perf": 1.67, "perf_subs": {"success": 1, "advance": 1, "volume": 3, "rate_raw": 0.0, "adv_raw": 0.0, "net_extras": 0, "events": 2}, "style": 1.0, "style_subs": {"Responsiveness": null, "Communication": null, "Initiative": null, "Learning": null, "Attitude": null, "Thoughtfulness": 1, "PM满意度": 1}, "hybrid": 1.5, "hybrid_10": 3.0, "band": "🚫 已开除", "summary": "🚫 已终止合作。详见「已离场」section。"}], "dedicated": [{"name": "Nisa", "range": "1-5000", "volume": 5000, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Areeha Shuja", "range": "1-5000", "volume": 5000, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Sherbano", "range": "1-5000", "volume": 5000, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Behzad", "range": "1-5000", "volume": 5000, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Bakhtawar", "range": "1-2500", "volume": 2500, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Lajverd Mir", "range": "2501-5000", "volume": 2500, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Arooba", "range": "5001-10015", "volume": 5015, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Zarmeena", "range": "5001-10015", "volume": 5015, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Samanzeb", "range": "5001-10015", "volume": 5015, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Bisma Tehreem", "range": "5001-10015", "volume": 5015, "status": "Done", "notes": "", "lead": "Behzad"}, {"name": "Maryam Iqbal", "range": "5001-10015", "volume": 5015, "status": "Done", "notes": "", "lead": "Behzad"}], "band_counts": {"⭐ Star": 1, "✅ Solid": 12, "🟡 Watch": 8, "🔴 Action": 1, "🆕 观察期": 2}, "avg_hybrid": 7.28, "totals": {"people": 24, "alumni": 3, "tasks": 4, "in_adv": 68, "on": 7, "done": 18, "delay": 17, "events": 110, "volume": 58342, "adv_pct": 61.8, "delay_pct": 15.5}, "pm_stats": {"Meng": {"people": 9, "groups_members": {"G5": ["Alve", "Nazima", "Tahmina"], "G6": ["Fitri", "Kim", "Rahadatul"], "G4": ["Darren", "Otto", "Shabnam"]}, "in_adv": 29, "on": 2, "done": 4, "delay": 9, "volume": 22680, "groups": ["G4", "G5", "G6"]}, "Dini": {"people": 9, "groups_members": {"G2": ["Ariel", "Smitha", "Yoseph"], "G3": ["Abhiraj", "Behzad", "Vignesh"], "G1": ["Arreha", "Fiza", "Mao"]}, "in_adv": 23, "on": 4, "done": 11, "delay": 2, "volume": 22021, "groups": ["G1", "G2", "G3"]}, "Xuan": {"people": 6, "groups_members": {"G7": ["Gilbert", "Hanif", "Tania"], "G8": ["Ayesha", "Liaquat", "Saman"]}, "in_adv": 16, "on": 1, "done": 3, "delay": 6, "volume": 13641, "groups": ["G7", "G8"]}}, "group_stats": {"G5": {"members": ["Alve", "Nazima", "Tahmina"], "pm": "Meng", "in_adv": 7, "on": 1, "done": 2, "delay": 4, "volume": 7560, "hybrid_sum": 19.36, "hybrid_count": 3, "best": "Alve", "best_score": 9.0, "delay_pct": 28.6, "adv_pct": 50.0, "avg_hybrid": 6.45}, "G2": {"members": ["Smitha", "Yoseph", "Ariel"], "pm": "Dini", "in_adv": 10, "on": 0, "done": 5, "delay": 0, "volume": 8211, "hybrid_sum": 23.57, "hybrid_count": 3, "best": "Smitha", "best_score": 8.86, "delay_pct": 0.0, "adv_pct": 66.7, "avg_hybrid": 7.86}, "G6": {"members": ["Kim", "Rahadatul", "Fitri"], "pm": "Meng", "in_adv": 12, "on": 0, "done": 0, "delay": 3, "volume": 7560, "hybrid_sum": 22.48, "hybrid_count": 3, "best": "Kim", "best_score": 8.85, "delay_pct": 20.0, "adv_pct": 80.0, "avg_hybrid": 7.49}, "G4": {"members": ["Darren", "Otto", "Shabnam"], "pm": "Meng", "in_adv": 10, "on": 1, "done": 2, "delay": 2, "volume": 7560, "hybrid_sum": 21.590000000000003, "hybrid_count": 3, "best": "Darren", "best_score": 8.56, "delay_pct": 13.3, "adv_pct": 66.7, "avg_hybrid": 7.2}, "G3": {"members": ["Behzad", "Abhiraj", "Vignesh"], "pm": "Dini", "in_adv": 8, "on": 3, "done": 3, "delay": 1, "volume": 8260, "hybrid_sum": 23.22, "hybrid_count": 3, "best": "Behzad", "best_score": 8.43, "delay_pct": 6.7, "adv_pct": 53.3, "avg_hybrid": 7.74}, "G7": {"members": ["Hanif", "Gilbert", "Tania"], "pm": "Xuan", "in_adv": 9, "on": 1, "done": 2, "delay": 2, "volume": 7581, "hybrid_sum": 21.37, "hybrid_count": 3, "best": "Hanif", "best_score": 8.16, "delay_pct": 14.3, "adv_pct": 64.3, "avg_hybrid": 7.12}, "G1": {"members": ["Mao", "Fiza", "Arreha"], "pm": "Dini", "in_adv": 5, "on": 1, "done": 3, "delay": 1, "volume": 5550, "hybrid_sum": 14.57, "hybrid_count": 2, "best": "Mao", "best_score": 7.86, "delay_pct": 10.0, "adv_pct": 50.0, "avg_hybrid": 7.29}, "G8": {"members": ["Liaquat", "Ayesha", "Saman"], "pm": "Xuan", "in_adv": 7, "on": 0, "done": 1, "delay": 4, "volume": 6060, "hybrid_sum": 14.09, "hybrid_count": 2, "best": "Liaquat", "best_score": 7.84, "delay_pct": 33.3, "adv_pct": 58.3, "avg_hybrid": 7.04}}};
+
+// Helpers
+function num(n) { return typeof n === "number" ? n.toLocaleString() : n; }
+function bandCls(b) {
+  if (b.includes('Star')) return 'band-star';
+  if (b.includes('Solid')) return 'band-solid';
+  if (b === '🟡 Watch') return 'band-watch';
+  if (b.includes('Action')) return 'band-action';
+  if (b.includes('观察期')) return 'band-onboard';
+  return 'band-term';
+}
+function statusCls(s) {
+  if (s.includes('Active')) return 'status active';
+  if (s.includes('Onboarding')) return 'status onboarding';
+  if (s.includes('Watch')) return 'status watch';
+  if (s.includes('Probation')) return 'status probation';
+  return 'status';
+}
+function sCell(v) {
+  if (v === null || v === undefined) return '<span class="s-na">n/a</span>';
+  return `<span class="s-cell s-${v}">${v}</span>`;
+}
+
+// KPIs
+document.getElementById('n-active').textContent = DATA.active.length;
+document.getElementById('n-events').textContent = DATA.totals.events.toLocaleString();
+document.getElementById('n-volume').textContent = DATA.totals.volume.toLocaleString();
+document.getElementById('n-avg').textContent = DATA.avg_hybrid.toFixed(1);
+document.getElementById('n-terminated').textContent = DATA.alumni.length;
+document.getElementById('n-onboarding').textContent = DATA.band_counts['🆕 观察期'] || 0;
+document.getElementById('n-adv-pct').textContent = DATA.totals.adv_pct + '%';
+document.getElementById('n-delay-pct').textContent = DATA.totals.delay_pct + '%';
+
+// Band distribution bar chart
+const bandOrder = [
+  ['⭐ Star', 'c-star'],
+  ['✅ Solid', 'c-solid'],
+  ['🟡 Watch', 'c-watch'],
+  ['🔴 Action', 'c-action'],
+  ['🆕 观察期', 'c-onboard'],
+];
+const maxBand = Math.max(...Object.values(DATA.band_counts), 1);
+document.getElementById('band-chart').innerHTML = bandOrder.map(([b, cls]) => {
+  const n = DATA.band_counts[b] || 0;
+  const pct = (n / maxBand) * 100;
+  return `<div class="bar-row">
+    <div class="bar-label">${b}</div>
+    <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct}%">${n > 0 ? n : ''}</div></div>
+    <div class="bar-count">${n} 人</div>
+  </div>`;
+}).join('');
+
+// Main table
+const groupSelect = document.getElementById('f-g');
+const groups = [...new Set(DATA.active.map(p => p.group).filter(Boolean))].sort();
+groups.forEach(g => groupSelect.innerHTML += `<option>${g}</option>`);
+
+// Sort state
+let sortCol = null;   // current sort column key
+let sortDir = 1;      // 1 = asc, -1 = desc
+
+const STATUS_RANK = { 'Active': 0, 'Onboarding': 1, 'Watch': 2, 'Probation': 3 };
+const BAND_RANK = { '⭐ Star': 0, '✅ Solid': 1, '🟡 Watch': 2, '🔴 Action': 3, '🆕 观察期': 4 };
+
+function sortValue(p, col) {
+  if (col === 'name') return p.name || '';
+  if (col === 'group') return p.group || 'zz';
+  if (col === 'pm') return p.pm || 'zz';
+  if (col === 'status') {
+    const key = Object.keys(STATUS_RANK).find(k => p.status[0].includes(k));
+    return STATUS_RANK[key] ?? 99;
+  }
+  if (col === 'band') return BAND_RANK[p.band] ?? 99;
+  if (col === 'events') return p.perf_subs.events || 0;
+  if (col === 'perf') return p.perf ?? -1;
+  if (col === 'style') return p.style ?? -1;
+  if (col === 'hybrid_10') return p.hybrid_10 ?? -1;
+  return p[col] ?? 0;
+}
+
+function renderMain() {
+  const q = document.getElementById('q').value.toLowerCase().trim();
+  const g = document.getElementById('f-g').value;
+  const s = document.getElementById('f-s').value;
+  const b = document.getElementById('f-b').value;
+  let rows = DATA.active.filter(p => {
+    if (q && !p.name.toLowerCase().includes(q)) return false;
+    if (g && p.group !== g) return false;
+    if (s && !p.status[0].includes(s)) return false;
+    if (b && p.band !== b) return false;
+    return true;
+  });
+
+  // Apply sort if active
+  if (sortCol) {
+    rows = [...rows].sort((a, b) => {
+      const va = sortValue(a, sortCol);
+      const vb = sortValue(b, sortCol);
+      if (va < vb) return -1 * sortDir;
+      if (va > vb) return 1 * sortDir;
+      return 0;
+    });
+  }
+
+  document.getElementById('main-body').innerHTML = rows.map(p => {
+    const hybrid = p.hybrid_10 !== null ? p.hybrid_10.toFixed(1) : '—';
+    const grpCls = p.group ? 'grp-' + p.group.replace(/[^A-Za-z0-9-]/g, '') : '';
+    return `<tr onclick='showDetail(${JSON.stringify(p.name)})' style="cursor:pointer;">
+      <td><span class="chip ${grpCls}">${p.group || '—'}</span></td>
+      <td><span class="chip ${statusCls(p.status[0])}">${p.status[0]}</span></td>
+      <td class="name">${p.name}</td>
+      <td><span class="faint">${p.pm || '—'}</span></td>
+      <td class="num"><span class="big-score blue">${hybrid}</span></td>
+      <td><span class="chip ${bandCls(p.band)}">${p.band}</span></td>
+      <td class="num">${p.in_advance}</td>
+      <td class="num">${p.on_time}</td>
+      <td class="num">${p.done}</td>
+      <td class="num" style="${p.delay>0?'color:#F87171':''}">${p.delay}</td>
+      <td class="num">${p.perf_subs.events || 0}</td>
+      <td class="num">${p.volume.toLocaleString()}</td>
+      <td class="num">${sCell(p.perf ? Math.round(p.perf) : null)}</td>
+      <td class="num">${sCell(p.style ? Math.round(p.style) : null)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('count').textContent = `显示 ${rows.length} / ${DATA.active.length} 人`;
+}
+['q','f-g','f-s','f-b'].forEach(id => {
+  document.getElementById(id).addEventListener('input', renderMain);
+  document.getElementById(id).addEventListener('change', renderMain);
+});
+
+// Wire up sortable column headers
+document.querySelectorAll('#main-tbl thead th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.sort;
+    if (sortCol === col) {
+      sortDir = -sortDir;
+    } else {
+      sortCol = col;
+      sortDir = (col === 'name' || col === 'group' || col === 'pm' || col === 'status' || col === 'band') ? 1 : -1;
+    }
+    document.querySelectorAll('#main-tbl thead th.sortable').forEach(x => {
+      x.classList.remove('sort-asc', 'sort-desc');
+    });
+    th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+    renderMain();
+  });
+});
+renderMain();
+
+// Group comparison table — sortable
+let groupSortCol = null, groupSortDir = 1;
+
+function groupSortValue(g, s, col) {
+  if (col === 'group') return g;
+  if (col === 'pm') return s.pm || '';
+  if (col === 'people') return s.members.length;
+  if (col === 'on_done') return s.on + s.done;
+  if (col === 'avg_hybrid') return s.avg_hybrid ?? -1;
+  if (col === 'best') return s.best_score ?? -1;
+  return s[col] ?? 0;
+}
+
+function filterMainByGroup(g) {
+  document.getElementById('f-g').value = g;
+  renderMain();
+  document.getElementById('main-tbl').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderGroupTable() {
+  let rows = Object.entries(DATA.group_stats);
+  if (groupSortCol) {
+    rows = [...rows].sort((a, b) => {
+      const va = groupSortValue(a[0], a[1], groupSortCol);
+      const vb = groupSortValue(b[0], b[1], groupSortCol);
+      if (va < vb) return -1 * groupSortDir;
+      if (va > vb) return 1 * groupSortDir;
+      return 0;
+    });
+  } else {
+    rows.sort(([a],[b]) => a.localeCompare(b));
+  }
+  document.getElementById('group-body').innerHTML = rows.map(([g, s]) => {
+    const avgHybrid = s.avg_hybrid !== null ? s.avg_hybrid.toFixed(2) : '—';
+    const grpCls = 'grp-' + g.replace(/[^A-Za-z0-9-]/g, '');
+    const bestHtml = s.best ?
+      `<span class="member-chip clickable" onclick='showDetail(${JSON.stringify(s.best)})'>${s.best}${s.best_score > 0 ? ' · ' + s.best_score.toFixed(1) : ''}</span>` :
+      '<span class="faint">—</span>';
+    return `<tr>
+      <td><span class="chip ${grpCls} clickable" style="cursor:pointer;" onclick='filterMainByGroup(${JSON.stringify(g)})'>${g}</span></td>
+      <td><span class="faint">${s.pm || '—'}</span></td>
+      <td class="num">${s.members.length}</td>
+      <td class="num" style="color:#34D399">${s.in_adv}</td>
+      <td class="num">${s.on + s.done}</td>
+      <td class="num" style="${s.delay>0?'color:#F87171':''}">${s.delay}</td>
+      <td class="num">${s.adv_pct}%</td>
+      <td class="num" style="${s.delay_pct>20?'color:#F87171':(s.delay_pct>10?'color:#EAB308':'')}">${s.delay_pct}%</td>
+      <td class="num">${s.volume.toLocaleString()}</td>
+      <td class="num"><span class="big-score blue">${avgHybrid}</span></td>
+      <td>${bestHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+document.querySelectorAll('#group-tbl thead th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.sort;
+    if (groupSortCol === col) groupSortDir = -groupSortDir;
+    else { groupSortCol = col; groupSortDir = (col === 'group' || col === 'pm' || col === 'best') ? 1 : -1; }
+    document.querySelectorAll('#group-tbl thead th.sortable').forEach(x => x.classList.remove('sort-asc', 'sort-desc'));
+    th.classList.add(groupSortDir === 1 ? 'sort-asc' : 'sort-desc');
+    renderGroupTable();
+  });
+});
+renderGroupTable();
+
+// PM cards with group members (clickable) — with member scores + PM avg
+// Build quick lookup: name → hybrid_10
+const nameScores = {};
+DATA.active.forEach(p => { nameScores[p.name] = p.hybrid_10; });
+DATA.alumni.forEach(p => { nameScores[p.name] = p.hybrid_10; });
+
+function scoreColorStyle(v) {
+  if (v === null || v === undefined) return 'color:#64748B';
+  if (v >= 9) return 'color:#FBBF24';
+  if (v >= 7) return 'color:#34D399';
+  if (v >= 5) return 'color:#EAB308';
+  return 'color:#F87171';
+}
+
+document.getElementById('pm-body-rows').innerHTML = Object.entries(DATA.pm_stats)
+  .sort(([,a],[,b]) => b.volume - a.volume)
+  .map(([pm, s]) => {
+    const total = s.in_adv + s.on + s.done + s.delay;
+    const delayPct = total > 0 ? ((s.delay / total) * 100).toFixed(1) : 0;
+    const delayClass = delayPct > 20 ? 'delay-high' : '';
+
+    // PM average across their managed groups
+    const gAvgs = s.groups
+      .map(g => DATA.group_stats[g]?.avg_hybrid)
+      .filter(v => v !== null && v !== undefined);
+    const pmAvg = gAvgs.length ? (gAvgs.reduce((a,b)=>a+b,0) / gAvgs.length).toFixed(2) : '—';
+
+    const groupBlocks = s.groups.map(grp => {
+      const members = s.groups_members[grp] || [];
+      const grpCls = 'grp-' + grp.replace(/[^A-Za-z0-9-]/g, '');
+      const gs = DATA.group_stats[grp] || {};
+      const gAvg = gs.avg_hybrid !== null && gs.avg_hybrid !== undefined ? gs.avg_hybrid.toFixed(2) : '—';
+      const memberChips = members.map(m => {
+        const sc = nameScores[m];
+        const scDisp = (sc !== null && sc !== undefined) ? sc.toFixed(1) : '—';
+        return `<span class="member-chip clickable" onclick='showDetail(${JSON.stringify(m)})'>
+          ${m} <span style="${scoreColorStyle(sc)}; font-weight:700; margin-left:4px;">${scDisp}</span>
+        </span>`;
+      }).join('');
+      return `<div class="group-block">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap;">
+          <span class="chip ${grpCls} clickable" style="cursor:pointer; font-size:12px;" onclick='filterMainByGroup(${JSON.stringify(grp)})'>${grp}</span>
+          <span style="font-size:12px; color:#64748B;">${members.length} 人</span>
+          <span style="font-size:12px; color:#94A3B8;">组均分 <b style="${scoreColorStyle(gs.avg_hybrid)}; font-size:14px;">${gAvg}</b></span>
+        </div>
+        <div class="grp-members">${memberChips}</div>
+      </div>`;
+    }).join('');
+    return `<div class="pm-card">
+      <div class="pm-head">
+        <div class="pm-name">${pm}</div>
+        <div class="pm-stats-line">
+          <span>管辖组 <b>${s.groups.join(', ')}</b></span>
+          <span>总人数 <b>${s.people}</b></span>
+          <span>PM 组均分 <b style="${scoreColorStyle(parseFloat(pmAvg))}; font-size:15px;">${pmAvg}</b></span>
+          <span>标注量 <b>${s.volume.toLocaleString()}</b></span>
+          <span>提前 <b style="color:#34D399">${s.in_adv}</b></span>
+          <span>按时/完成 <b>${s.on + s.done}</b></span>
+          <span class="${delayClass}">延迟 <b style="${s.delay>0?'color:#F87171':''}">${s.delay}</b> (${delayPct}%)</span>
+        </div>
+      </div>
+      ${groupBlocks}
+    </div>`;
+  }).join('');
+
+// Dedicated team — list / table format
+document.getElementById('ded-n').textContent = DATA.dedicated.length;
+document.getElementById('ded-vol').textContent = DATA.dedicated.reduce((a,m) => a + m.volume, 0).toLocaleString();
+document.getElementById('ded-done').textContent = DATA.dedicated.filter(m => m.status === 'Done').length + '/' + DATA.dedicated.length;
+document.getElementById('ded-body').innerHTML = DATA.dedicated
+  .sort((a, b) => b.volume - a.volume)
+  .map(m => `<tr>
+    <td class="name">${m.name}${m.name === 'Behzad' ? ' 👑' : ''}</td>
+    <td><span class="faint">${m.range}</span></td>
+    <td class="num"><b style="color:#A78BFA;">${m.volume.toLocaleString()}</b></td>
+    <td><span class="chip status active">${m.status}</span></td>
+  </tr>`).join('');
+
+// Alumni
+document.getElementById('alumni-list').innerHTML = DATA.alumni.map(a => {
+  const hybrid = a.hybrid_10 !== null ? a.hybrid_10.toFixed(1) : 'n/a';
+  return `<div class="alumni-card">
+    <div class="alumni-head">
+      <div>
+        <span class="alumni-name">${a.name}</span>
+        <span class="faint" style="margin-left:8px;">${a.group} · ${a.pm}</span>
+      </div>
+      <span class="chip band-term">🚫 已开除</span>
+    </div>
+    <div class="alumni-reason">📌 ${a.status[1]}</div>
+    <div class="alumni-stats">
+      <span>In Adv <b>${a.in_advance}</b></span>
+      <span>On Time <b>${a.on_time}</b></span>
+      <span>Done <b>${a.done}</b></span>
+      <span style="color:#F87171">Delay <b>${a.delay}</b></span>
+      <span>Volume <b>${a.volume.toLocaleString()}</b></span>
+      <span>最后得分 <b>${hybrid}/10</b></span>
+    </div>
+  </div>`;
+}).join('');
+
+// Methodology
+const rubric = [
+  { t: "总体框架", b: "Performance (75%, 任务硬数据) + Style (25%, 沟通软数据)\nHybrid (1-5) = 0.75 × Performance + 0.25 × Style\nHybrid /10 = Hybrid × 2\n\n分档 (Hybrid /10):\n  ⭐ Star  ≥9  顶配,留用 + 加码 + 表扬\n  ✅ Solid  7–9  稳定可靠,保持现状\n  🟡 Watch 5–7  需观察,1-on-1 明确预期\n  🔴 Action <5  需介入,辅导 / 减量 / 淘汰\n  🆕 观察期 · 新人 <7 天\n  🚫 已开除 · 本周终止合作" },
+  { t: "【Performance · 3 子项】", b: "1. 成功率 = (In Adv + On Time + Done) / (成功 + Delay)\n   100%=5 · ≥90%=4 · ≥75%=3 · ≥50%=2 · <50%=1\n\n2. 提前率 = In Advance / 总交付\n   ≥80%=5 · ≥60%=4 · ≥40%=3 · ≥20%=2 · <20%=1\n\n3. 视频量 vs 基线 500/天\n   net_extras = 实际 - events × 500\n   ≥1000=5 · ≥300=4 · ≥0=3 · ≥-300=2 · <-300=1\n\n示例 · Ariel: 3 In Adv + 2 Done + 0 Delay = 5/5 = 100% → 成功率 5" },
+  { t: "【Style · 7 子项】", b: "1. Responsiveness · 响应速度 (WhatsApp)\n2. Communication · 沟通质量 (WhatsApp)\n3. Initiative · 主动性 (WhatsApp)\n4. Learning curve · 学习曲线 (WhatsApp)\n5. Attitude · 态度 (WhatsApp)\n6. Thoughtfulness · 思考认真度 (PM praise / 提问量推断)\n7. PM 主观满意度 (PM 手动 1-5 分)\n\nStyle = 7 项简单平均" },
+  { t: "生命周期 Status", b: "✅ Active · 正常在岗\n🆕 Onboarding · 入职 <7 天 (Arreha, Saman)\n🟡 Watch · 本周延迟率 ≥ 50%\n⚠️ Probation · 连续 2 周问题,1-on-1 介入\n🚫 Terminated · 已开除,移至「已离场」" },
+  { t: "局限与下一步", b: "1. Quality 维度仍缺 — 等标注平台 review pass rate 数据\n2. 本周任务窗口仅 Apr 19-23,下周补 Apr 24-26 数据后重算\n3. Behzad 专属团队单独评估 — 批量任务口径不同\n4. PM 满意度需 PM 每周手动 review,避免机械指标忽略细节" },
+];
+document.getElementById('methodology').innerHTML = rubric.map(r => `<div class="rubric-item">
+  <div class="rubric-title">${r.t}</div>
+  <div class="rubric-body">${r.b}</div>
+</div>`).join('');
+
+// Detail modal
+function showDetail(name) {
+  const p = DATA.active.find(x => x.name === name) || DATA.alumni.find(x => x.name === name);
+  if (!p) return;
+  const grpCls = p.group ? 'grp-' + p.group.replace(/[^A-Za-z0-9-]/g, '') : '';
+  document.getElementById('m-name').innerHTML =
+    `${p.name} <span style="color:#94A3B8;font-weight:400;font-size:15px;">· </span>` +
+    `<span class="chip ${grpCls}" style="vertical-align: middle;">${p.group || '—'}</span> ` +
+    `<span style="color:#94A3B8;font-weight:400;font-size:15px;">· PM ${p.pm}</span>`;
+  document.getElementById('m-sub').innerHTML =
+    `<span class="chip ${bandCls(p.band)}">${p.band}</span> &nbsp; <span class="chip ${statusCls(p.status[0])}">${p.status[0]}</span>` +
+    (p.status[1] ? ` · <i>${p.status[1]}</i>` : '');
+
+  let html = '';
+
+  // Personal summary — prominent at top
+  if (p.summary) {
+    html += `<div class="summary-box">${p.summary}</div>`;
+  }
+
+  // Hybrid hero
+  const avgDisp = p.hybrid_10 !== null ? p.hybrid_10.toFixed(2) : 'n/a';
+  html += `<div class="mod-big">
+    <div><span class="score-big">${avgDisp}</span><span class="score-unit">/10</span></div>
+    <div class="meta">
+      <div style="color:#64748B; font-size:11px;">Hybrid = 0.75 × Perf + 0.25 × Style</div>
+      <div style="margin-top:6px;"><b style="color:#60A5FA;">Perf ${p.perf !== null ? p.perf : 'n/a'}/5</b> &nbsp;·&nbsp; <b style="color:#A78BFA;">Style ${p.style !== null ? p.style : 'n/a'}/5</b></div>
+    </div>
+  </div>`;
+
+  html += `<div class="mod-sect">📋 本周任务原始数据</div>
+    <div class="mod-grid">
+      <div class="mod-cell"><div class="k">✅ 提前</div><div class="v" style="color:#34D399;">${p.in_advance}</div></div>
+      <div class="mod-cell"><div class="k">按时</div><div class="v">${p.on_time}</div></div>
+      <div class="mod-cell"><div class="k">Done</div><div class="v">${p.done}</div></div>
+      <div class="mod-cell"><div class="k">⚠️ 延迟</div><div class="v ${p.delay>0?'red':''}">${p.delay}</div></div>
+      <div class="mod-cell"><div class="k">进行中</div><div class="v">${p.in_progress}</div></div>
+      <div class="mod-cell"><div class="k">任务数</div><div class="v">${p.n_tasks}</div></div>
+      <div class="mod-cell"><div class="k">标注量</div><div class="v">${p.volume.toLocaleString()}</div></div>
+      <div class="mod-cell"><div class="k">Events</div><div class="v">${p.perf_subs.events || 0}</div></div>
+    </div>`;
+
+  if (p.perf !== null) {
+    html += `<div class="mod-sect">🔵 Performance 子分</div>
+      <div class="mod-rows">
+        <div class="mod-rr"><span class="lbl">成功率 <span class="tag">${p.perf_subs.rate_raw}%</span></span>${sCell(p.perf_subs.success)}</div>
+        <div class="mod-rr"><span class="lbl">提前率 <span class="tag">${p.perf_subs.adv_raw}%</span></span>${sCell(p.perf_subs.advance)}</div>
+        <div class="mod-rr"><span class="lbl">视频量 vs 基线 <span class="tag">net ${p.perf_subs.net_extras >= 0 ? '+' : ''}${p.perf_subs.net_extras}</span></span>${sCell(p.perf_subs.volume)}</div>
+      </div>`;
+  }
+
+  if (p.style !== null) {
+    html += `<div class="mod-sect">🟣 Style 子分</div><div class="mod-rows">`;
+    [['Responsiveness','响应速度'],['Communication','沟通质量'],['Initiative','主动性'],
+     ['Learning','学习曲线'],['Attitude','态度'],['Thoughtfulness','思考认真度 ⭐'],
+     ['PM满意度','PM主观满意度 ⭐']].forEach(([k, lbl]) => {
+      const v = p.style_subs[k];
+      if (v === null || v === undefined) return;
+      html += `<div class="mod-rr"><span class="lbl">${lbl}</span>${sCell(v)}</div>`;
+    });
+    html += `</div>`;
+  }
+
+  if (p.tasks_list.length > 0) {
+    html += `<div class="mod-sect">本周参与任务</div><div>` +
+      p.tasks_list.map(t => `<span class="chip" style="margin-right:6px;background:#1A2538;color:#CBD5E1;">${t}</span>`).join('') +
+      `</div>`;
+  }
+
+  document.getElementById('m-body').innerHTML = html;
+  document.getElementById('overlay').classList.add('open');
+  document.querySelector('.modal').scrollTop = 0;
+}
+
+function closeModal() { document.getElementById('overlay').classList.remove('open'); }
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target.id === 'overlay') closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body></html>
